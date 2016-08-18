@@ -1,0 +1,9 @@
+
+{
+  "name": "slack",
+  "description": "Slack functions for AWS Lambda",
+  "memory": 128,
+  "timeout": 5,
+  "role": "arn:aws:iam::581647696645:role/slack_lambda_function",
+  "environment": {}
+}

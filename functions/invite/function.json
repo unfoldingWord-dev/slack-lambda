@@ -1,0 +1,4 @@
+{
+  "description": "Sends slack invitation",
+  "runtime": "python"
+}
