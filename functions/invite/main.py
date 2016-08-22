@@ -1,9 +1,11 @@
 from __future__ import print_function, unicode_literals
-from base64 import b64decode
+import base64
 import json
 import logging
 import time
+import urllib
 import requests
+import pyaes.aes
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -20,11 +22,11 @@ def handle(event, context):
     querystring = event['params']['querystring']
     callback = querystring['callback']
 
-    # noinspection PyBroadException
-    token = b64decode('slack key goes here')
-    email = querystring['email']
-    f_name = querystring['first_name']
-    l_name = querystring['last_name']
+    # decrypt the passed token
+    token = decrypt_token(urllib.unquote(querystring['token']))
+    email = urllib.unquote(querystring['email'])
+    f_name = urllib.unquote(querystring['first_name'])
+    l_name = urllib.unquote(querystring['last_name'])
     channels = 'C04PNHLCE'
 
     slack_url = 'https://team43.slack.com/api/users.admin.invite?t={0}'.format(int(time.time()))
@@ -36,7 +38,23 @@ def handle(event, context):
     if response.status_code == 200:
         resp_obj = json.loads(response.text)
         if resp_obj['ok']:
-            return callback + '({"result": "success", "message": "{0}"})'.format(response.text)
+            data = {'result': 'success', 'message': 'Invitation sent'}
+        else:
+            data = {'result': 'error', 'message': resp_obj['error'].replace('_', ' ')}
     else:
-        return callback + '({"result": "failed", "message": "{0}: {1}"})'.format(response.status_code,
-                                                                                 response.reason)
+        data = {'result': 'failed', 'message': response.status_code + ': ' + response.reason}
+
+    return callback + '(' + json.dumps(data) + ')'
+
+
+def decrypt_token(encrypted_token):
+    """
+    The token is passed in base64 encoded and AES encrypted
+    :param str encrypted_token:
+    :return: str
+    """
+    key = 'unfoldingWord.org_door43.org_ufw'
+    iv = 'unfoldingWord_43'
+
+    aes = pyaes.AESModeOfOperationOFB(key, iv=iv)
+    return aes.decrypt(base64.b64decode(encrypted_token))

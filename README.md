@@ -26,3 +26,21 @@
 * Click `Save`.
 * Click on the `Actions` button and pick `Deploy API`.
 * Pick `prod` for the stage and click `Deploy`.
+
+### Installing AWS CLI
+
+    sudo apt install awscli
+
+### Configuring AWS CLI
+
+    aws configure
+
+### Installing Apex
+
+    sudo curl https://raw.githubusercontent.com/apex/apex/master/install.sh | sudo sh
+
+### Encrypting the Slack API Token
+
+Follow on-screen prompts:
+
+    python functions/invite/encrypt.py
