@@ -1,5 +1,9 @@
 # Slack Lambda Functions for Door43
 
+### Installing Project Requirements
+
+    ./install-requirements.sh
+    
 ### Deploying with Apex
 
     cd ~/Projects/slack-lambda
