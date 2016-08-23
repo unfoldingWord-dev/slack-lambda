@@ -1,4 +1,3 @@
 *.dist-info/
 .gitignore
 requirements.txt
-encrypt.py
