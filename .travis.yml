@@ -1,8 +1,17 @@
 language: python
 python:
-  - '2.7'
+- '2.7'
+
+before_install:
+- pip install --user awscli
+- export PATH=$PATH:$HOME/.local/bin
+- ./travis-install-apex.sh
+- apex -h
+
 install:
-  - pip install -r requirements-travis.txt
-  - pip install coveralls
+- pip install -r requirements-travis.txt
+- pip install coveralls
+
 script: coverage run --source=functions test-setup.py test
+
 after_success: coveralls
