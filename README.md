@@ -33,6 +33,13 @@
 * Click on the `Actions` button and pick `Deploy API`.
 * Pick `prod` for the stage and click `Deploy`.
 
+### Installing Travis CLI
+
+__NOTE: Ruby is required. I used Ruby version 2.2.2 and it worked.__
+
+    gem install travis --no-rdoc --no-ri
+    ln -s ~/.rbenv/versions/2.2.2/bin/travis ~/.local/bin/travis
+
 ### Installing AWS CLI
 
     sudo apt install awscli
