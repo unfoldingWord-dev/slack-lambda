@@ -8,5 +8,3 @@ DEST="${THIS_DIR}/apex"
 
 curl -sL ${URL} -o ${DEST}
 chmod +x ${DEST}
-
-export PATH=$PATH:${THIS_DIR}
