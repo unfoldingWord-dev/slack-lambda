@@ -4,7 +4,6 @@ python:
 
 before_install:
 - pip install awscli
-- export PATH=$PATH:$HOME/.local/bin
 - ./travis-install-apex.sh
 - apex -h
 
