@@ -15,22 +15,26 @@ cred=~/.aws/credentials
 cp ${yaml} ${yaml}.bak
 grep -v 'secure:' ${yaml} > ${yaml}.tmp
 mv ${yaml}.tmp ${yaml}
+str=""
 
 while read line ; do
     echo ${line}
     key="${line%=*}"
     val="${line#*=}"
 
-    if [ ${key} = "aws_access_key_id" ]
-    then
-        travis encrypt ${val} --add deploy.access_key_id
-    fi
-
-    if [ ${key} = "aws_secret_access_key" ]
-    then
-        travis encrypt ${val} --add deploy.secret_access_key
-    fi
-
+    case ${key} in
+        '['*|'#'*) ;; # ignore commented out credentials
+        *)
+            if [ "${str}" = "" ]
+            then
+                str="${key^^}=${val}"
+            else
+                str="${str} ${key^^}=${val}"
+            fi
+        ;;
+    esac
 done < ${cred}
+
+travis encrypt ${str} --add
 
 echo "Finished"

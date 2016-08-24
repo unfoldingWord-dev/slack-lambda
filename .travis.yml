@@ -1,17 +1,15 @@
 language: python
 python:
 - '2.7'
-
 before_install:
 - pip install awscli
-- export PATH=$PATH:$HOME/.local/bin
-- ./travis-install-apex.sh
+- "./travis-install-apex.sh"
 - apex -h
-
 install:
 - pip install -r requirements-travis.txt
 - pip install coveralls
-
 script: coverage run --source=functions test-setup.py test
-
 after_success: coveralls
+env:
+  global:
+    secure: hgDLNqxqASsnDEdpjQ9gCmIkDEQQklrQ8GOIv7/TkFA12Fuu6loPvmIgFqF1+PhSwyPVFKneaFE1MGjlXpFgEoS5gsocho3hK2pFodJmY03XO7hfSy7/Alg//PHsAAgmvmUJFWvbkDukyY3rX7R3PFtKWfl+oBrbERUxudbIrcWs7CcRSSkbNq5S6XAI1AZ+O/kXroWDSS2kytttrOgC6RTM/ThWWXIoxQ8L8wW11BCoYE1xe98UQ2aqQ2meiXJB2dypvK5CgaeIUPpz/YummPdhXX8kiq9c7inqpL+VBv8l1NwTf05sNrHZpraJF52n6JKp/3FDZPDHoCpuRSLAjd/hdxu3VtomE8/zhJeec2vJXMpbqRwW5+sCneQHrOQbYgRMeycRcB0mCY0zUsrn+Uu7oN9ZovMy5mA8jIBZHk81a2dbK7S7RK0Rjl6WS8oHVyTGvdYj0mZumMvVB+qCfkiH872XNEVmZz1lQcPOwl0isoRuUaySDAgZhibZeWAwuynj1To8T3Gp+D8+v1DmSYEV2NtkgL2wjViuXBmhsD29u41MJ6pe9ULZTxAfaW8ar2rKbAc0WKFzqf64jt7Fvqtyjk+Y6iv0M4fWVK+xBXwwceSsozBA5ENsQOonG6XaIgKOGcuijJ8WekLhszU2TowlKcXXCpFtMqo5icjcXnY=
