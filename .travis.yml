@@ -1,8 +1,20 @@
 language: python
 python:
-  - '2.7'
+- '2.7'
+before_install:
+- pip install awscli
+- "./travis-install-apex.sh"
 install:
-  - pip install -r requirements-travis.txt
-  - pip install coveralls
+- pip install -r requirements-travis.txt
+- pip install coveralls
 script: coverage run --source=functions test-setup.py test
-after_success: coveralls
+after_success:
+- coveralls
+deploy:
+  provider: script
+  script: deploy.sh
+  on:
+    branch: master
+env:
+  global:
+    secure: AVOTEw/BwuGqGnnBMEEF4cUQGdrtwXEHISgQZuNE5Z7jteCufV+6FyDIgVEvfCtJlWG+ZpjNWh59X2eD3sD8p88d2Mm6EnOSlgd2B1kEQeX0biH74i+tgVaf8JUvfMWkp6c6J+lC/JfZDV1pWlMRwlKuyW5+IZj66o8yQzHjHsqqSOsShmfhYJky/HAsGt6MY1oxRAgpgSRqr9E/YOu4bc4Tzn+vvbmeK0ho8E08GiTtHgmpk0B6g6kFlh5oDHQeBOGMdrn5dnItb5p4OMdFscVRjLcQjQpLBtvoGRlusXEj4HpqN76zz1Y1jM12YxZT8PWsE7uBfWIGNG4eyJPLa42Mszrcbb1BlubJT3w6Ct0/RF3zOr1MVIPAhH0RsMDpRcpwbEJEJKftbRhKVKGp9KFLDt64aani8+MUa7YFIbABFH4fNaYIj9Aieo3sgzoBybMqe/a8ZzjpE9XqSBZaRgt7tPXdKM6La4BXs7z00pKpIi5wq3RAEp711UWe78lSVwu1EzpxlFuJ6CCQaVpFjxYEBCXg4VBWCX5UFrmVqFu+bBGj3Ae0pNMpm011Va1lBHYqpNGELoLYArNqj/7Y48uAn+aWEdFDmY6XArQNoBOg2SBTmFU4ANJea0aL2jLuOYXTEbM7o3QkToLFc69sB28uTz3K6zrCzHTleRNSAw0=
