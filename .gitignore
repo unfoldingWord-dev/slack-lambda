@@ -1,3 +1,7 @@
 .idea/
 *.iml
 *.bak
+*.egg-info
+*.pyc
+.coverage
+apex

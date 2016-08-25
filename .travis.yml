@@ -5,7 +5,7 @@ before_install:
 - pip install awscli
 - "./travis-install-apex.sh"
 install:
-- pip install -r requirements-travis.txt
+- "./install-requirements.sh"
 - pip install coveralls
 script: coverage run --source=functions test-setup.py test
 after_success:
