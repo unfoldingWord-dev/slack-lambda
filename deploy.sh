@@ -13,6 +13,7 @@ then
     "${thisDir}/apex" init
     "${thisDir}/apex" deploy
 else
+    echo "$AWS_ACCESS_KEY_ID"
     echo "Not deploying:"
     echo "  TRAVIS_BRANCH = $TRAVIS_BRANCH (must be 'master')"
     echo "  TRAVIS_SECURE_ENV_VARS = $TRAVIS_SECURE_ENV_VARS (must be 'true')"
