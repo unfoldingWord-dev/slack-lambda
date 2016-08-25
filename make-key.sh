@@ -35,6 +35,6 @@ while read line ; do
     esac
 done < ${cred}
 
-travis encrypt ${str} --add
+travis encrypt ${str} --add env.global -r ~/Projects/slack-lambda
 
 echo "Finished"
