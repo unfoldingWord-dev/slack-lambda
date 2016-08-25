@@ -1,3 +1,4 @@
 pyaes/
 requests/
 *.dist-info/
+*.pyc
