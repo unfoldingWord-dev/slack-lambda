@@ -16,4 +16,9 @@ else
     echo "Not deploying:"
     echo "  TRAVIS_BRANCH = $TRAVIS_BRANCH (must be 'master')"
     echo "  TRAVIS_SECURE_ENV_VARS = $TRAVIS_SECURE_ENV_VARS (must be 'true')"
+    echo "Deploying..."
+    thisDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    echo "${thisDir}"
+    "${thisDir}/apex" init
+    "${thisDir}/apex" deploy
 fi
