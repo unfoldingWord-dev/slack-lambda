@@ -15,7 +15,3 @@ deploy:
   script: "./deploy.sh"
   on:
     branch: master
-env:
-  global:
-  - AWS_REGION=us-west-2
-  - secure: bWj8d1+IhRkYNJVPr6kHcT2PHztF9NFQMzTGhiznBgMltFqZgZnBQsDHdw1vCoF9P69woGAdWsLPSX/bldrxxESHunlGwM244tw7ePN0FrLO61HYW5S7mXual3F35PiQbLM8FFbWXC5gxD47lN5DyzTBuoCNlcSmv1rEyLc+Q/23viZM/AHTA+nP4L8x0DxeCMNGzRhrA91148mI2di1hFPRjM9FEOdvyKCDIenYodIks07xp0DFPJSsDVaWtQBT4GDO3P2PaLFWwxR4px23Q606rKS+EfxNYqTwgTfeH6Ebs2p7fRKrshiyb4+czwgtFgDy/VRmvObzOdapAwbvrtPxSM4A5A8MK8D5ZEspZ/uMWaZ8wqtnrFiwLOGtm60UFxkTXEqshNXIOteerbAPS76PF+BsBGAkiooqVN2RUnI46itwxJ1k7Ao5nyJLuasHoSFfp0s7RekmKa37RYOTqkadgboX1ZYHcR1rw/GD8hdTCTrTbWsQ/sHykY7yPJ/j0iYHNeI0uuJovNRfxsRu35lNH+BStsYULmVhe+U9slZORKcSWFNaxz6K3+pX1W0iAPpGo4RKEOy7y9P1+ZbbZsd9iwNWdLhytt2tAmHJ97/z5Iv6rguCI1ssYJo0JuGgiivKNZvrEQPtUVenmXLXCuA5SPnORKzMsKKP0IctMts=
