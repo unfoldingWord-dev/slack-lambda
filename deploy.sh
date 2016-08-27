@@ -9,14 +9,10 @@
 if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_SECURE_ENV_VARS == "true" ]]
 then
     echo "Deploying..."
-    echo "$AWS_SECRET_ACCESS_KEY"
-    echo "$AWS_ACCESS_KEY_ID"
-    echo "$AWS_REGION"
     repoDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     thisDir="$( dirname "${repoDir}" )"
     "${thisDir}/apex" deploy -C "${repoDir}"
 else
-    echo "$AWS_ACCESS_KEY_ID"
     echo "Not deploying:"
     echo "  TRAVIS_BRANCH = $TRAVIS_BRANCH (must be 'master')"
     echo "  TRAVIS_SECURE_ENV_VARS = $TRAVIS_SECURE_ENV_VARS (must be 'true')"
