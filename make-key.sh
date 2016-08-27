@@ -17,24 +17,19 @@ grep -v 'secure:' ${yaml} > ${yaml}.tmp
 mv ${yaml}.tmp ${yaml}
 str=""
 
-while read line ; do
-    echo ${line}
-    key="${line%=*}"
-    val="${line#*=}"
+while read k e v ; do
+  uk=${k^^} # uppercase credential names
 
-    case ${key} in
-        '['*|'#'*) ;; # ignore commented out credentials
-        *)
-            if [ "${str}" = "" ]
-            then
-                str="${key^^}=${val}"
-            else
-                str="${str} ${key^^}=${val}"
-            fi
-        ;;
-    esac
+  case ${k} in
+    '['*|'#'*) ;; # ignore commented out credentials
+    *)
+      echo ${uk}
+      echo ${v}
+      res="$res $uk=$v "  # add a variable to the list
+      ;;
+  esac
 done < ${cred}
 
-travis encrypt ${str} --add env.global -r ~/Projects/slack-lambda
+#travis encrypt ${res} --add
 
 echo "Finished"
