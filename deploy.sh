@@ -9,9 +9,9 @@
 if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_SECURE_ENV_VARS == "true" ]]
 then
     echo "Deploying..."
-    thisDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-    thisDir="$( dirname "${thisDir}" )"
-    "${thisDir}/apex" deploy
+    repoDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    thisDir="$( dirname "${repoDir}" )"
+    "${thisDir}/apex" deploy -C "${repoDir}"
 else
     echo "$AWS_ACCESS_KEY_ID"
     echo "Not deploying:"
