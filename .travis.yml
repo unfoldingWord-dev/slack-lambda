@@ -14,9 +14,4 @@ script: coverage run test-setup.py test
 
 after_success:
   - coveralls
-  
-deploy:
-  provider: script
-  script: "./deploy.sh"
-  on:
-    branch: master
+  - "./deploy.sh"
