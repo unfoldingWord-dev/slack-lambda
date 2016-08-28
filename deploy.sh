@@ -6,7 +6,7 @@
 #
 ################################################################################
 
-if [[ $TRAVIS_EVENT_TYPE == "push" && $TRAVIS_BRANCH == "master" && $TRAVIS_SECURE_ENV_VARS == "true" ]]
+if [[ ${TRAVIS_EVENT_TYPE} == "push" && ${TRAVIS_BRANCH} == "master" && ${TRAVIS_SECURE_ENV_VARS} == "true" ]]
 then
     echo "Deploying..."
     repoDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
