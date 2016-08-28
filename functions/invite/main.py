@@ -1,10 +1,10 @@
-from __future__ import print_function, unicode_literals
+from __future__ import unicode_literals
 import json
 import logging
 import time
 import urllib
 import requests
-from functions.invite.encrypt import decrypt_slack_token
+from encrypt import decrypt_slack_token
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
