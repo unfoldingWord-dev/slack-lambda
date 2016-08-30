@@ -5,3 +5,4 @@ source =
 omit =
     */invite/pyaes/*
     */invite/requests/*
+    */invite/main.py
