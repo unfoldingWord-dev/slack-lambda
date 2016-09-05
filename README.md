@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/unfoldingWord-dev/slack-lambda.svg)](https://travis-ci.org/unfoldingWord-dev/slack-lambda) [![Coverage Status](https://coveralls.io/repos/github/unfoldingWord-dev/slack-lambda/badge.svg)](https://coveralls.io/github/unfoldingWord-dev/slack-lambda)
+[![Build Status](https://travis-ci.org/unfoldingWord-dev/slack-lambda.svg)](https://travis-ci.org/unfoldingWord-dev/slack-lambda) [![Coverage Status](https://coveralls.io/repos/github/unfoldingWord-dev/slack-lambda/badge.svg?v=1)](https://coveralls.io/github/unfoldingWord-dev/slack-lambda)
 
 # Slack Lambda Functions for Door43
 
