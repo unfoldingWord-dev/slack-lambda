@@ -56,4 +56,4 @@ __NOTE: Ruby is required. I used Ruby version 2.2.2 and it worked.__
 
 Follow on-screen prompts:
 
-    python functions/invite/encrypt.py
+    python encrypt_token.py
