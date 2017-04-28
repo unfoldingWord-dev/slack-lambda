@@ -6,6 +6,13 @@
 
     ./install-requirements.sh
     
+### Initialize Project with Apex
+__NOTE: this has to be done whenever you want to deploy to new server to create the lambda role on AWS and create the project.json file with the proper role ID.__
+
+    cd ~/Projects/slack-lambda
+    aws configure
+    apex init
+
 ### Deploying with Apex
 
     cd ~/Projects/slack-lambda
