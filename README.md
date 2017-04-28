@@ -18,10 +18,29 @@ __NOTE: this has to be done whenever you want to deploy to new server to create 
     cd ~/Projects/slack-lambda
     apex deploy
 
+### Create API
+* In the AWS console, select `API Gateway`.
+
+
 ### Enable API
 
-* In the AWS console, select `API Gateway`.
-* Select the slack_invite API, click Resources, then select GET.
+* In the AWS console, select `Lambda`.
+* Click on slack_invite function.
+* Select `Triggers` and click on `Add trigger`.
+* Click in empty rectangle and select `API Gateway` from drop down list.
+* Set `API name` to slack_invite
+* Click Submit
+* Click on method `ANY` to change methods in API Gateway
+* Select the slack_invite API, click Resources, then select `ANY`.
+* Click on `Actions` and select `Delete Method`
+* Click on `Actions` and select `Create Method`
+* Select `GET` and click on checkmark.
+* Click on method `GET`.
+* Under `GET - Setup`
+* Click on `Lambda Function`
+* Set `Lambda Region` to `us-west-2`.
+* Set `Lambda Function` to `slack-invite`.
+* Click on `Save`
 * Click on `Method Request` and enter the `URL Query String Parameters` needed.
 * Click back.
 * Click on `Integration Request`.
@@ -37,8 +56,11 @@ __NOTE: this has to be done whenever you want to deploy to new server to create 
 * Click `Add mapping template`.
 * Enter `application/json` and then enter `$util.parseJson($input.json('$'))` in the template area.
 * Click `Save`.
+* Click on drop down `Body Mapping Template` to compact.
+* Click `Save`.
 * Click on the `Actions` button and pick `Deploy API`.
 * Pick `prod` for the stage and click `Deploy`.
+* Prod Stage Editor pops up.  Click on `Save Changes`
 
 ### Installing Travis CLI
 
