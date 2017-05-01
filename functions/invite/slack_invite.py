@@ -21,27 +21,30 @@ class SlackInvite(object):
         :param dist querystring:
         :return: dict
         """
-        # decrypt the passed token
-        token = decrypt_slack_token(urllib.unquote(querystring['token']))
-        email = urllib.unquote(querystring['email'])
-        f_name = urllib.unquote(querystring['first_name'])
-        l_name = urllib.unquote(querystring['last_name'])
-        # noinspection SpellCheckingInspection
-        channels = 'C04PNHLCE'
+        try:
+            # decrypt the passed token
+            token = decrypt_slack_token(urllib.unquote(querystring['token']))
+            email = urllib.unquote(querystring['email'])
+            f_name = urllib.unquote(querystring['first_name'])
+            l_name = urllib.unquote(querystring['last_name'])
+            # noinspection SpellCheckingInspection
+            channels = 'C04PNHLCE'
 
-        slack_data = {'email': email, 'channels': channels,
-                      'first_name': f_name, 'last_name': l_name,
-                      'token': token, 'set_active': 'true', '_attempts': '1'}
-        self.do_request(slack_data)
+            slack_data = {'email': email, 'channels': channels,
+                          'first_name': f_name, 'last_name': l_name,
+                          'token': token, 'set_active': 'true', '_attempts': '1'}
+            self.do_request(slack_data)
 
-        if self.response.status_code == 200:
-            resp_obj = json.loads(self.response.text)
-            if resp_obj['ok']:
-                return {'result': 'success', 'message': 'Invitation sent'}
+            if self.response.status_code == 200:
+                resp_obj = json.loads(self.response.text)
+                if resp_obj['ok']:
+                    return {'result': 'success', 'message': 'Invitation sent'}
+                else:
+                    return {'result': 'error', 'message': resp_obj['error'].replace('_', ' ')}
             else:
-                return {'result': 'error', 'message': resp_obj['error'].replace('_', ' ')}
-        else:
-            return {'result': 'failed', 'message': str(self.response.status_code) + ': ' + self.response.reason}
+                return {'result': 'failed', 'message': str(self.response.status_code) + ': ' + self.response.reason}
+        except:
+            return {'result': 'failed', 'message': 'Invalid token'}
 
     def do_request(self, slack_data):
         """

@@ -24,15 +24,14 @@ __NOTE: this has to be done whenever you want to deploy to new server to create 
 
 ### Enable API
 
-* In the AWS console, select `Lambda`.
-* Click on slack_invite function.
-* Select `Triggers` and click on `Add trigger`.
-* Click in empty rectangle and select `API Gateway` from drop down list.
-* Set `API name` to slack_invite
-* Click Submit
-* Click on method `ANY` to change methods in API Gateway
-* Select the slack_invite API, click Resources, then select `ANY`.
-* Click on `Actions` and select `Delete Method`
+* In the AWS console, select `API Gateway`.
+* Click on `Create API`
+* Select `New Api` and set `API name` to slack_invite
+* Click on `Create API`
+* Click on `Actions` and select `Create Resource`
+* Set `Resource Name` to `slack_invite`.
+* Click on `Create Resource`
+* Select `/invite`
 * Click on `Actions` and select `Create Method`
 * Select `GET` and click on checkmark.
 * Click on method `GET`.
