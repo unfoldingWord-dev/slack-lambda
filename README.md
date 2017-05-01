@@ -62,12 +62,6 @@ __NOTE: this has to be done whenever you want to deploy to new server to create 
 * Pick `prod` for the stage and click `Deploy`.
 * Prod Stage Editor pops up.  Click on `Save Changes`
 
-### Set up Travis for deploy
-* Add deploy section to `.travis.yml`
-* Encrypt the secret access key using Travis CLI:
-
-    `travis encrypt --add deploy.secret_access_key`        
-    
 ### Installing Travis CLI
 
 __NOTE: Ruby is required. I used Ruby version 2.2.2 and it worked.__
