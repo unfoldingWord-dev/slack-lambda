@@ -45,7 +45,7 @@ class SlackInvite(object):
                     return {'result': 'success', 'message': 'Invitation sent'}
                 else:
                     reason = resp_obj['error'].replace('_', ' ')
-                    logger.error("invite returned error: " + reason)
+                    logger.error("invite to '" + email + "' returned error: " + reason)
                     return {'result': 'error', 'message': reason}
             else:
                 reason = str(self.response.status_code) + ': ' + self.response.reason
