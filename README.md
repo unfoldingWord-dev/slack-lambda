@@ -19,11 +19,7 @@ __NOTE: make sure the AWS key is set and that the role in the project.json file 
     cd ~/Projects/slack-lambda
     apex deploy
 
-### Create API
-* In the AWS console, select `API Gateway`.
-
-
-### Enable API
+### Configure API Gateway
 
 * In the AWS console, select `API Gateway`.
 * Click on `Create API`
