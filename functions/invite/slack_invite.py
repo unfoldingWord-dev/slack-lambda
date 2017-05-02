@@ -14,6 +14,8 @@ class SlackInvite(object):
     Process a request to send someone a Slack invitation
     """
 
+    PARAMETER_PARSE_EXCEPTION = 'Invalid token'
+
     def __init__(self):
         self.slack_url = 'https://team43.slack.com/api/users.admin.invite?t={0}'.format(int(time.time()))
         self.response = None
@@ -53,7 +55,7 @@ class SlackInvite(object):
                 return {'result': 'failed', 'message': reason}
         except:
             logger.exception("crash parsing parameters")
-            return {'result': 'failed', 'message': 'Invalid token'}
+            return {'result': 'failed', 'message': self.PARAMETER_PARSE_EXCEPTION}
 
     def do_request(self, slack_data):
         """
