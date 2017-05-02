@@ -81,3 +81,74 @@ class TestSlackInvite(TestCase):
 
         self.assertEqual('failed', response['result'])
         self.assertEqual('500: Server error', response['message'])
+
+    def test_fail_invalid_token(self):
+        """
+        This tests when the Slack API returns a not-OK response
+        """
+        querystring = {'token': 'OQC2issg+AT7X',
+                       'email': 'test@test.com',
+                       'first_name': 'Bob',
+                       'last_name': 'fail_request_response'}
+
+        msi = TestSlackInvite.MockSlackInvite()
+        response = msi.send_invite(querystring)
+
+        self.assertEqual('failed', response['result'])
+        self.assertEqual(msi.PARAMETER_PARSE_EXCEPTION, response['message'])
+
+    def test_missing_token(self):
+        """
+        This tests when the Slack API returns a not-OK response
+        """
+        querystring = {'email': 'test@test.com',
+                       'first_name': 'Bob',
+                       'last_name': 'fail_request_response'}
+
+        msi = TestSlackInvite.MockSlackInvite()
+        response = msi.send_invite(querystring)
+
+        self.assertEqual('failed', response['result'])
+        self.assertEqual(msi.PARAMETER_PARSE_EXCEPTION, response['message'])
+
+    def test_missing_email(self):
+        """
+        This tests when the Slack API returns a not-OK response
+        """
+        querystring = {'token': 'OQC2issg+AT7',
+                       'first_name': 'Bob',
+                       'last_name': 'fail_request_response'}
+
+        msi = TestSlackInvite.MockSlackInvite()
+        response = msi.send_invite(querystring)
+
+        self.assertEqual('failed', response['result'])
+        self.assertEqual(msi.PARAMETER_PARSE_EXCEPTION, response['message'])
+
+    def test_missing_first_name(self):
+        """
+        This tests when the Slack API returns a not-OK response
+        """
+        querystring = {'token': 'OQC2issg+AT7',
+                       'email': 'test@test.com',
+                       'last_name': 'fail_request_response'}
+
+        msi = TestSlackInvite.MockSlackInvite()
+        response = msi.send_invite(querystring)
+
+        self.assertEqual('failed', response['result'])
+        self.assertEqual(msi.PARAMETER_PARSE_EXCEPTION, response['message'])
+
+    def test_missing_last_name(self):
+        """
+        This tests when the Slack API returns a not-OK response
+        """
+        querystring = {'token': 'OQC2issg+AT7',
+                       'email': 'test@test.com',
+                       'first_name': 'Bob'}
+
+        msi = TestSlackInvite.MockSlackInvite()
+        response = msi.send_invite(querystring)
+
+        self.assertEqual('failed', response['result'])
+        self.assertEqual(msi.PARAMETER_PARSE_EXCEPTION, response['message'])
