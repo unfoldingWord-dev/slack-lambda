@@ -1,9 +1,8 @@
-
 {
   "name": "slack",
-  "description": "Slack functions for AWS Lambda",
+  "description": "Invite users to slack",
   "memory": 128,
   "timeout": 5,
-  "role": "arn:aws:iam::581647696645:role/slack_lambda_function",
+  "role": "arn:aws:iam::002723143144:role/slack_lambda_function",
   "environment": {}
 }

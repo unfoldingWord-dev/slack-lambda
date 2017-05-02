@@ -3,8 +3,11 @@ import json
 import urllib
 import requests
 import time
+import logging
 from encrypt import decrypt_slack_token
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 class SlackInvite(object):
     """
@@ -38,12 +41,18 @@ class SlackInvite(object):
             if self.response.status_code == 200:
                 resp_obj = json.loads(self.response.text)
                 if resp_obj['ok']:
+                    logger.info("slack invite success to: " + email)
                     return {'result': 'success', 'message': 'Invitation sent'}
                 else:
-                    return {'result': 'error', 'message': resp_obj['error'].replace('_', ' ')}
+                    reason = resp_obj['error'].replace('_', ' ')
+                    logger.error("invite returned error: " + reason)
+                    return {'result': 'error', 'message': reason}
             else:
-                return {'result': 'failed', 'message': str(self.response.status_code) + ': ' + self.response.reason}
+                reason = str(self.response.status_code) + ': ' + self.response.reason
+                logger.error("invite call failed: " + reason)
+                return {'result': 'failed', 'message': reason}
         except:
+            logger.exception("crash parsing parameters")
             return {'result': 'failed', 'message': 'Invalid token'}
 
     def do_request(self, slack_data):
