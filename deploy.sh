@@ -6,7 +6,7 @@
 #
 ################################################################################
 
-if [[ ${TRAVIS_EVENT_TYPE} == "push" && ${TRAVIS_BRANCH} == "master" && ${TRAVIS_SECURE_ENV_VARS} == "true" ]]
+if [[ ${TRAVIS_EVENT_TYPE} == "push" && (${TRAVIS_BRANCH} == "master" || ${TRAVIS_BRANCH} == "develop") && ${TRAVIS_SECURE_ENV_VARS} == "true" ]]
 then
     echo "Deploying..."
     repoDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -15,6 +15,6 @@ then
 else
     echo "Not deploying:"
     echo "  TRAVIS_EVENT_TYPE = $TRAVIS_EVENT_TYPE (must be 'push')"
-    echo "  TRAVIS_BRANCH = $TRAVIS_BRANCH (must be 'master')"
+    echo "  TRAVIS_BRANCH = $TRAVIS_BRANCH (must be 'master' or 'develop')"
     echo "  TRAVIS_SECURE_ENV_VARS = $TRAVIS_SECURE_ENV_VARS (must be 'true')"
 fi
