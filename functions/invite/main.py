@@ -16,4 +16,5 @@ def handle(event, context):
     :return: str
     """
     querystring = event['params']['querystring']
-    return SlackInvite().send_invite(querystring)
+    response = SlackInvite().send_invite(querystring)
+    return querystring['callback'] + '(' + json.dumps(response) + ')'
