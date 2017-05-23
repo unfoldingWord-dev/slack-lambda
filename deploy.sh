@@ -11,7 +11,7 @@ then
     echo "Deploying..."
     repoDir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
     thisDir="$( dirname "${repoDir}" )"
-    "${thisDir}/apex" deploy -C "${repoDir}"
+    "${thisDir}/apex" deploy -C "${repoDir}" --env ${TRAVIS_BRANCH}
 else
     echo "Not deploying:"
     echo "  TRAVIS_EVENT_TYPE = $TRAVIS_EVENT_TYPE (must be 'push')"
