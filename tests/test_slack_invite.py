@@ -1,4 +1,6 @@
 from __future__ import unicode_literals
+
+import json
 from unittest import TestCase
 from functions.invite import requests
 from functions.invite.slack_invite import SlackInvite
@@ -44,13 +46,33 @@ class TestSlackInvite(TestCase):
         querystring = {'token': 'OQC2issg+AT7',
                        'email': 'test@test.com',
                        'first_name': 'Bob',
+                       'last_name': 'good_request_response',
+                       'callback': 'CallBack'}
+
+        msi = TestSlackInvite.MockSlackInvite()
+        response = msi.send_invite(querystring)
+
+        callback, data, validJsonp = self.parseJsonp(response)
+        self.assertEqual(querystring['callback'],callback)
+        self.assertEqual(True, validJsonp)
+        self.assertEqual('success', data['result'])
+        self.assertEqual('Invitation sent', data['message'])
+
+    def test_error_missing_callback(self):
+        """
+        This tests the normal flow
+        """
+        querystring = {'token': 'OQC2issg+AT7',
+                       'email': 'test@test.com',
+                       'first_name': 'Bob',
                        'last_name': 'good_request_response'}
 
         msi = TestSlackInvite.MockSlackInvite()
         response = msi.send_invite(querystring)
 
-        self.assertEqual('success', response['result'])
-        self.assertEqual('Invitation sent', response['message'])
+        callback, data, validJsonp = self.parseJsonp(response)
+        self.assertEqual('failed', data['result'])
+        self.assertEqual(msi.PARAMETER_PARSE_EXCEPTION, data['message'])
 
     def test_error_request_response(self):
         """
@@ -59,13 +81,17 @@ class TestSlackInvite(TestCase):
         querystring = {'token': 'OQC2issg+AT7',
                        'email': 'test@test.com',
                        'first_name': 'Bob',
-                       'last_name': 'error_request_response'}
+                       'last_name': 'error_request_response',
+                       'callback': 'CallBack'}
 
         msi = TestSlackInvite.MockSlackInvite()
         response = msi.send_invite(querystring)
 
-        self.assertEqual('error', response['result'])
-        self.assertEqual('Some error message', response['message'])
+        callback, data, validJsonp = self.parseJsonp(response)
+        self.assertEqual(querystring['callback'],callback)
+        self.assertEqual(True, validJsonp)
+        self.assertEqual('error', data['result'])
+        self.assertEqual('Some error message', data['message'])
 
     def test_fail_request_response(self):
         """
@@ -74,13 +100,17 @@ class TestSlackInvite(TestCase):
         querystring = {'token': 'OQC2issg+AT7',
                        'email': 'test@test.com',
                        'first_name': 'Bob',
-                       'last_name': 'fail_request_response'}
+                       'last_name': 'fail_request_response',
+                       'callback': 'CallBack'}
 
         msi = TestSlackInvite.MockSlackInvite()
         response = msi.send_invite(querystring)
 
-        self.assertEqual('failed', response['result'])
-        self.assertEqual('500: Server error', response['message'])
+        callback, data, validJsonp = self.parseJsonp(response)
+        self.assertEqual(querystring['callback'],callback)
+        self.assertEqual(True, validJsonp)
+        self.assertEqual('failed', data['result'])
+        self.assertEqual('500: Server error', data['message'])
 
     def test_fail_invalid_token(self):
         """
@@ -89,13 +119,17 @@ class TestSlackInvite(TestCase):
         querystring = {'token': 'OQC2issg+AT7X',
                        'email': 'test@test.com',
                        'first_name': 'Bob',
-                       'last_name': 'fail_request_response'}
+                       'last_name': 'fail_request_response',
+                       'callback': 'CallBack'}
 
         msi = TestSlackInvite.MockSlackInvite()
         response = msi.send_invite(querystring)
 
-        self.assertEqual('failed', response['result'])
-        self.assertEqual(msi.PARAMETER_PARSE_EXCEPTION, response['message'])
+        callback, data, validJsonp = self.parseJsonp(response)
+        self.assertEqual(querystring['callback'],callback)
+        self.assertEqual(True, validJsonp)
+        self.assertEqual('failed', data['result'])
+        self.assertEqual(msi.PARAMETER_PARSE_EXCEPTION, data['message'])
 
     def test_missing_token(self):
         """
@@ -103,13 +137,17 @@ class TestSlackInvite(TestCase):
         """
         querystring = {'email': 'test@test.com',
                        'first_name': 'Bob',
-                       'last_name': 'fail_request_response'}
+                       'last_name': 'fail_request_response',
+                       'callback': 'CallBack'}
 
         msi = TestSlackInvite.MockSlackInvite()
         response = msi.send_invite(querystring)
 
-        self.assertEqual('failed', response['result'])
-        self.assertEqual(msi.PARAMETER_PARSE_EXCEPTION, response['message'])
+        callback, data, validJsonp = self.parseJsonp(response)
+        self.assertEqual(querystring['callback'],callback)
+        self.assertEqual(True, validJsonp)
+        self.assertEqual('failed', data['result'])
+        self.assertEqual(msi.PARAMETER_PARSE_EXCEPTION, data['message'])
 
     def test_missing_email(self):
         """
@@ -117,13 +155,17 @@ class TestSlackInvite(TestCase):
         """
         querystring = {'token': 'OQC2issg+AT7',
                        'first_name': 'Bob',
-                       'last_name': 'fail_request_response'}
+                       'last_name': 'fail_request_response',
+                       'callback': 'CallBack'}
 
         msi = TestSlackInvite.MockSlackInvite()
         response = msi.send_invite(querystring)
 
-        self.assertEqual('failed', response['result'])
-        self.assertEqual(msi.PARAMETER_PARSE_EXCEPTION, response['message'])
+        callback, data, validJsonp = self.parseJsonp(response)
+        self.assertEqual(querystring['callback'],callback)
+        self.assertEqual(True, validJsonp)
+        self.assertEqual('failed', data['result'])
+        self.assertEqual(msi.PARAMETER_PARSE_EXCEPTION, data['message'])
 
     def test_missing_first_name(self):
         """
@@ -131,13 +173,17 @@ class TestSlackInvite(TestCase):
         """
         querystring = {'token': 'OQC2issg+AT7',
                        'email': 'test@test.com',
-                       'last_name': 'fail_request_response'}
+                       'last_name': 'fail_request_response',
+                       'callback': 'CallBack'}
 
         msi = TestSlackInvite.MockSlackInvite()
         response = msi.send_invite(querystring)
 
-        self.assertEqual('failed', response['result'])
-        self.assertEqual(msi.PARAMETER_PARSE_EXCEPTION, response['message'])
+        callback, data, validJsonp = self.parseJsonp(response)
+        self.assertEqual(querystring['callback'],callback)
+        self.assertEqual(True, validJsonp)
+        self.assertEqual('failed', data['result'])
+        self.assertEqual(msi.PARAMETER_PARSE_EXCEPTION, data['message'])
 
     def test_missing_last_name(self):
         """
@@ -145,10 +191,33 @@ class TestSlackInvite(TestCase):
         """
         querystring = {'token': 'OQC2issg+AT7',
                        'email': 'test@test.com',
-                       'first_name': 'Bob'}
+                       'first_name': 'Bob',
+                       'callback': 'CallBack'}
 
         msi = TestSlackInvite.MockSlackInvite()
         response = msi.send_invite(querystring)
 
-        self.assertEqual('failed', response['result'])
-        self.assertEqual(msi.PARAMETER_PARSE_EXCEPTION, response['message'])
+        callback, data, validJsonp = self.parseJsonp(response)
+        self.assertEqual(querystring['callback'],callback)
+        self.assertEqual(True, validJsonp)
+        self.assertEqual('failed', data['result'])
+        self.assertEqual(msi.PARAMETER_PARSE_EXCEPTION, data['message'])
+
+    # helper methods
+
+    def parseJsonp(self, text):
+        valid = False
+        callback = None
+        data = None
+        try:
+            prefix = text.split('(')
+            DUMMY_TEST = '__'
+            payload = (prefix[1] + DUMMY_TEST).split(')')
+            callback = prefix[0]
+            data = json.loads(payload[0])
+            valid = (payload[1] == DUMMY_TEST) and (len(data) > 0)
+        except:
+            pass
+
+        return  callback, data, valid
+

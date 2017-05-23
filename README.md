@@ -3,21 +3,21 @@
 # Slack Lambda Functions for Door43
 
 ### Installing Project Requirements
+In terminal set up virtual environment:
 
-    ./install-requirements.sh
-    
-### Initialize Project with Apex
-__NOTE: this has to be done whenever you want to deploy to new location. It will create the lambda role on AWS and create the project.json file with the proper role ID.  Make sure you have the correct AWS key set up.__
+    source ~/<path_to_venv>/bin/activate
+
+Next install requirements:
 
     cd ~/Projects/slack-lambda
-    aws configure
-    apex init
+    ./install-requirements.sh
 
 ### Deploying with Apex
-__NOTE: make sure the AWS key is set and that the role in the project.json file is pointing to the correct deployment destingation (e.g. test or prod).__
+Need to first set up AWS credentials (see configuring AWS CLI below).
 
     cd ~/Projects/slack-lambda
-    apex deploy
+    apex --env test deploy
+
 
 ### Configure API Gateway
 
