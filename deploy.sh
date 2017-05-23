@@ -6,6 +6,8 @@
 #
 ################################################################################
 
+set -e
+
 if [[ ${TRAVIS_EVENT_TYPE} == "push" && (${TRAVIS_BRANCH} == "master" || ${TRAVIS_BRANCH} == "develop") && ${TRAVIS_SECURE_ENV_VARS} == "true" ]]
 then
     echo "Deploying..."
