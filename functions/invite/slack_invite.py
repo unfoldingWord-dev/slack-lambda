@@ -26,8 +26,10 @@ class SlackInvite(object):
         :param dist querystring:
         :return: dict
         """
+        callback = ""
         try:
             # decrypt the passed token
+            callback = querystring['callback']
             token = decrypt_slack_token(urllib.unquote(querystring['token']))
             email = urllib.unquote(querystring['email'])
             f_name = urllib.unquote(querystring['first_name'])
@@ -44,18 +46,20 @@ class SlackInvite(object):
                 resp_obj = json.loads(self.response.text)
                 if resp_obj['ok']:
                     logger.info("slack invite success to: " + email)
-                    return {'result': 'success', 'message': 'Invitation sent'}
+                    data = {'result': 'success', 'message': 'Invitation sent'}
                 else:
                     reason = resp_obj['error'].replace('_', ' ')
                     logger.error("invite to '" + email + "' returned error: " + reason)
-                    return {'result': 'error', 'message': reason}
+                    data = {'result': 'error', 'message': reason}
             else:
                 reason = str(self.response.status_code) + ': ' + self.response.reason
                 logger.error("invite call failed: " + reason)
-                return {'result': 'failed', 'message': reason}
+                data = {'result': 'failed', 'message': reason}
         except:
             logger.exception("crash parsing parameters")
-            return {'result': 'failed', 'message': self.PARAMETER_PARSE_EXCEPTION}
+            data = {'result': 'failed', 'message': self.PARAMETER_PARSE_EXCEPTION}
+
+        return callback + '(' + json.dumps(data) + ')'
 
     def do_request(self, slack_data):
         """
