@@ -12,10 +12,23 @@ install:
 
 script: coverage run test-setup.py test
 
-after_success:
-  - coveralls
-  - "./deploy.sh"
-
 env:
   global:
     - PYTHONDONTWRITEBYTECODE=true
+
+deploy:
+- provider: script
+  skip_cleanup: true
+  script:
+  - ./deploy.sh
+  on:
+    branch: develop
+- provider: script
+  skip_cleanup: true
+  script:
+  - ./deploy.sh
+  on:
+    branch: master
+
+after_success:
+  - coveralls

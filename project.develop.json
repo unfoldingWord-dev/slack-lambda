@@ -1,0 +1,8 @@
+{
+  "name": "dev-slack",
+  "description": "Sends slack invitation",
+  "memory": 128,
+  "timeout": 5,
+  "role": "arn:aws:iam::002723143144:role/dev-slack_invite_lambda_function",
+  "environment": {}
+}
